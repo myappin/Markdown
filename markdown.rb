@@ -58,7 +58,9 @@ class Markdown
 
     def add_code_tags(code, language)
       code = code.sub(/<pre>/,'<div class="lang">' + language + '</div><pre><code class="' + language + '">')
-      code = code.sub(/<\/pre>/,"</code></pre>")
+      code = code.sub(/<\/pre>/,'</code></pre>')
+      code = code.sub(/<table class=\"highlighttable\">/, '<div class="highlight-wrap"><table class="highlighttable">')
+      code = code.sub(/<\/table>/, '</table></div>')
     end
   end
 end
