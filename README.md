@@ -1,5 +1,6 @@
 # Markdown
-Redcarpet markdown with Pygments code highlighter
+Redcarpet markdown with Pygments code highlighter.
+Redcarpet and Pygments uses GitHub also
 
 ## Usage
 ```sh
