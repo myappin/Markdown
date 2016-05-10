@@ -5,6 +5,7 @@ Redcarpet and Pygments uses GitHub also
 ## Insall
 ```sh
 bundler install
+pip install pygments
 ```
 
 ## Usage

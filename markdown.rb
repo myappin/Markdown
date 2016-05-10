@@ -6,9 +6,9 @@
 # Date: 10. 5. 2016
 # Time: 12:49
 
-require 'pygmentize'
 require 'redcarpet'
 require 'optparse'
+require "shellwords"
 
 class Markdown
   class << self
@@ -53,8 +53,20 @@ class Markdown
   class HTMLWithPygments < Redcarpet::Render::Safe
     def block_code(code, language)
       language = language && language.split.first || "text"
+      args = [
+          '-O', 'linenos=table',
+          '-O', 'linespans=line',
+          '-O', "encoding=#{code.encoding}",
+          '-l', "#{language.to_s}",
+          '-f', 'html',
+      ]
       output = add_code_tags(
-          Pygmentize.process(code, language, ['-O linenos=table', '-O anchorlinenos=1', '-O lineanchors=line']), language
+          IO.popen("/usr/bin/pygmentize #{Shellwords.shelljoin args}", 'r+') do |io|
+            io.write(code)
+            io.close_write
+            io.read
+          end,
+          language
       )
     end
 
