@@ -45,7 +45,15 @@ class Markdown
           safe_links_only: false,
           fenced_code_blocks: true,
           autolink: true,
-          space_after_headers: true
+          space_after_headers: true,
+          tables: true,
+          lax_spacing: true,
+          superscript: true,
+          highlight: true,
+          quote: true,
+          footnotes: true,
+          underline: true,
+          strikethrough: true,
       )
     end
   end
