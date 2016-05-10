@@ -36,19 +36,21 @@ class Markdown
     end
 
     private
-      def markdown
-        @markdown ||= Redcarpet::Markdown.new(
-            HTMLWithPygments,
-            filter_styles: true,
-            filter_html: true,
-            fenced_code_blocks: true,
-            autolink: true,
-            space_after_headers: true
-        )
-      end
+    def markdown
+      @markdown ||= Redcarpet::Markdown.new(
+          HTMLWithPygments,
+          filter_styles: true,
+          filter_html: true,
+          escape_html: true,
+          safe_links_only: false,
+          fenced_code_blocks: true,
+          autolink: true,
+          space_after_headers: true
+      )
+    end
   end
 
-  class HTMLWithPygments < Redcarpet::Render::HTML
+  class HTMLWithPygments < Redcarpet::Render::Safe
     def block_code(code, language)
       language = language && language.split.first || "text"
       output = add_code_tags(
@@ -57,8 +59,8 @@ class Markdown
     end
 
     def add_code_tags(code, language)
-      code = code.sub(/<pre>/,'<div class="lang">' + language + '</div><pre><code class="' + language + '">')
-      code = code.sub(/<\/pre>/,'</code></pre>')
+      code = code.sub(/<pre>/, '<div class="lang">' + language + '</div><pre><code class="' + language + '">')
+      code = code.sub(/<\/pre>/, '</code></pre>')
       code = code.sub(/<table class=\"highlighttable\">/, '<div class="highlight-wrap"><table class="highlighttable">')
       code = code.sub(/<\/table>/, '</table></div>')
     end
