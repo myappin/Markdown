@@ -1,3 +1,11 @@
+##
+# MyAppIn (http://www.appin.cz)
+# @author    Martin Lonsky (martin@lonsky.net, +420 736 645876)
+# @link      http://www.myappin.cz
+# @copyright Copyright (c) MyAppIn s.r.o. (http://www.myappin.cz)
+# Date: 10. 5. 2016
+# Time: 12:49
+
 require 'pygmentize'
 require 'redcarpet'
 require 'optparse'
