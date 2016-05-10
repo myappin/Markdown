@@ -15,7 +15,7 @@ class Markdown
 
     def options_parser
       @@options = {
-          file: ''
+          file: '',
       }
       OptionParser.new do |opts|
         opts.banner = 'Usage: markdown --file <filepath>'
@@ -54,7 +54,7 @@ class Markdown
     def block_code(code, language)
       language = language && language.split.first || "text"
       output = add_code_tags(
-          Pygmentize.process(code, language, ['-O linenos=1']), language
+          Pygmentize.process(code, language, ['-O linenos=table', '-O anchorlinenos=1', '-O lineanchors=line', '-O linespans=line']), language
       )
     end
 
