@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+lib_path = File.expand_path('../../', __FILE__)
+$:.unshift(lib_path)
+
+require 'markdown'
+
+Markdown::render(ARGV)

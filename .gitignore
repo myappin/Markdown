@@ -1,0 +1,9 @@
+﻿vendor
+vendor/
+.idea
+.idea/
+composer.lock
+_*
+_*/
+nbproject
+nbproject/
