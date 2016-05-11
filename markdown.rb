@@ -18,8 +18,8 @@ class Markdown
           file: '',
       }
       OptionParser.new do |opts|
-        opts.banner = 'Usage: markdown --file <filepath>'
-        opts.on('--file FILEPATH', 'Set filepath') do |path|
+        opts.banner = 'Usage: markdown --file <path>'
+        opts.on('--file path', 'Set path') do |path|
           @@options[:file] = path
         end
       end
@@ -83,6 +83,10 @@ class Markdown
       code = code.sub(/<\/pre>/, '</code></pre>')
       code = code.sub(/<table class=\"highlighttable\">/, '<div class="highlight-wrap"><table class="highlighttable">')
       code = code.sub(/<\/table>/, '</table></div>')
+    end
+
+    def table(header, body)
+      output = "<table class='table table-striped'><thead>#{header}</thead><tbody>#{body}</tbody></table>"
     end
   end
 end
