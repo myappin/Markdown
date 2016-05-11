@@ -64,6 +64,7 @@ class Markdown
       args = [
           '-O', 'linenos=table',
           '-O', 'linespans=line',
+          '-O', 'startinline=1',
           '-O', "encoding=#{code.encoding}",
           '-l', "#{language.to_s}",
           '-f', 'html',
