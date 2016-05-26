@@ -79,15 +79,23 @@ class Markdown
       )
     end
 
+    def link(link, title, content)
+      output = "<a href=\"#{link}\"" + (title != '' ? " title=\"#{title}\"" : '') +" target=\"_blank\">#{content}</a>"
+    end
+
+    def autolink(link, link_type)
+      output = "<a href=\"#{link}\" target=\"_blank\" data-type=\"#{link_type}\">#{link}</a>"
+    end
+
     def add_code_tags(code, language)
-      code = code.sub(/<pre>/, '<div class="lang">' + language + '</div><pre><code class="' + language + '">')
+      code = code.sub(/<pre>/, "<div class=\"lang\">#{language}</div><pre><code class=\"#{language}\">")
       code = code.sub(/<\/pre>/, '</code></pre>')
-      code = code.sub(/<table class=\"highlighttable\">/, '<div class="highlight-wrap"><table class="highlighttable">')
+      code = code.sub(/<table class=\"highlighttable\">/, "<div class=\"highlight-wrap\"><table class=\"highlighttable\">")
       code = code.sub(/<\/table>/, '</table></div>')
     end
 
     def table(header, body)
-      output = "<table class='table table-striped'><thead>#{header}</thead><tbody>#{body}</tbody></table>"
+      output = "<table class=\"table table-striped\"><thead>#{header}</thead><tbody>#{body}</tbody></table>"
     end
   end
 end
