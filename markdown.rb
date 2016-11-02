@@ -39,10 +39,6 @@ class Markdown
     def markdown
       @markdown ||= Redcarpet::Markdown.new(
           HTMLWithPygments,
-          :filter_styles => true,
-          :filter_html => true,
-          :escape_html => true,
-          :safe_links_only => false,
           :fenced_code_blocks => true,
           :autolink => true,
           :space_after_headers => true,
@@ -53,7 +49,6 @@ class Markdown
           :highlight => true,
           :quote => true,
           :footnotes => true,
-          :hard_wrap => true,
           :underline => true,
           :strikethrough => true,
       )
@@ -61,6 +56,13 @@ class Markdown
   end
 
   class HTMLWithPygments < Redcarpet::Render::Safe
+    def initialize(extensions = {})
+      super({
+                safe_links_only: false,
+                hard_wrap: true,
+            }.merge(extensions))
+    end
+
     def block_code(code, language)
       language = language && language.split.first || "text"
       args = [
