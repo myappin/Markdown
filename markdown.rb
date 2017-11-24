@@ -8,7 +8,8 @@
 
 require 'redcarpet'
 require 'optparse'
-require "shellwords"
+require 'shellwords'
+require 'cgi'
 
 class Markdown
   class << self
@@ -84,11 +85,18 @@ class Markdown
     end
 
     def link(link, title, content)
-      output = "<a href=\"#{link}\"" + (title != '' ? " title=\"#{title}\"" : '') +" target=\"_blank\">#{content}</a>"
+      if title.to_s.empty?
+        title = CGI.escapeHTML(content)
+      end
+      output = "<a href=\"#{link}\" title=\"#{title}\" target=\"_blank\">#{content}</a>"
     end
 
     def autolink(link, link_type)
-      output = "<a href=\"#{link}\" target=\"_blank\" data-type=\"#{link_type}\">#{link}</a>"
+      if link_type.to_s == 'email'
+        output = "<a href=\"mailto:#{link}\" target=\"_blank\" data-type=\"#{link_type}\">#{link}</a>"
+      else
+        output = "<a href=\"#{link}\" target=\"_blank\" data-type=\"#{link_type}\">#{link}</a>"
+      end
     end
 
     def add_code_tags(code, language)
